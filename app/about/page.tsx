@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+import StandardCmsPage from "@/components/StandardCmsPage";
+import { getCmsPageByRoute } from "@/lib/cms";
+
+export const revalidate = 300;
+export async function generateMetadata(): Promise<Metadata> { const page = await getCmsPageByRoute("/about"); return { title: page?.meta_title || "About This Independent Menu Guide", description: page?.meta_description || "How the Tim Hortons Menu USA Guide researches prices, deals and official location coverage.", robots: { index: page?.robots_index ?? true, follow: true }, alternates: { canonical: "/about" } }; }
+export default async function AboutPage() { const page = await getCmsPageByRoute("/about"); return <StandardCmsPage page={page} eyebrow="Transparency" fallbackH1="About the Tim Hortons Menu USA Guide" fallbackBody={<><h2>Purpose</h2><p>This independent website helps U.S. customers understand menu categories, price variation, current promotional claims and location availability before opening a restaurant ordering screen.</p><h2>What makes a state page indexable</h2><p>A state page becomes indexable only when the official U.S. Tim Hortons directory lists at least one city in that state. Pages without verified coverage remain accessible for users and internal navigation but use a noindex directive.</p><h2>Independence and trademarks</h2><p>This site is not affiliated with Tim Hortons. Brand names and product marks belong to their respective owners. The site does not use official branding in a way that implies ownership or endorsement.</p></>} />; }
